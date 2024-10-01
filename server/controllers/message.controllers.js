@@ -1,6 +1,5 @@
 const Conversation = require("../models/conversation.model");
 const Message = require("../models/message.model");
-const User = require("../models/user.model");
 
 exports.sendMessage = async (req, res) => {
   try {
