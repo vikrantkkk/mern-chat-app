@@ -1,17 +1,16 @@
 import React, { useState } from "react";
+import useLogin from "../../hooks/useLogin";
 
-const SignUp = () => {
+const Login = () => {
   const [inputs, setInput] = useState({
-    fullName: "",
     username: "",
     password: "",
-    confirmPassword: "",
-    gender: "",
   });
-  console.log("🚀 ~ SignUp ~ inputs:", inputs);
+  const { loading, login } = useLogin();
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Prevents page from refreshing on form submission
+    e.preventDefault();
+    await login(inputs);
   };
 
   return (
@@ -43,10 +42,9 @@ const SignUp = () => {
             onChange={(e) => setInput({ ...inputs, password: e.target.value })}
             type="password"
             placeholder="Password"
-            className="px-4 py-2 w-full bg-slate-600 text-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
+            className="px-4 py-2 mb-2 w-full bg-slate-600 text-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
           />
         </div>
-
         <button
           type="submit"
           className="bg-slate-600 px-4 py-2 rounded-lg hover:bg-gradient-to-l transition duration-300"
@@ -54,14 +52,15 @@ const SignUp = () => {
           Login
         </button>
         <p className="text-sm text-center ">
-          First time ?{" "}
-          <a href="#" className="text-blue-200 hover:underline">
+          {"Don't"} have an account ?
+          <a href="#" className="text-blue-200 ml-2 hover:underline">
             Sign Up
           </a>
         </p>
       </form>
+      {loading && <div>loading.....</div>}
     </div>
   );
 };
 
-export default SignUp;
+export default Login;

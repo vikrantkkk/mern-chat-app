@@ -1,18 +1,25 @@
 import React, { useState } from "react";
 import GenderCheckbox from "./GenderCheckbox";
+import useSignup from "../../hooks/useSignup";
 
 const SignUp = () => {
   const [inputs, setInput] = useState({
-    fullName: "",
+    name: "",
     username: "",
     password: "",
     confirmPassword: "",
     gender: "",
   });
-  console.log("🚀 ~ SignUp ~ inputs:", inputs)
+
+  const { loading, signup } = useSignup();
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Prevents page from refreshing on form submission
+    e.preventDefault();
+    await signup(inputs);
+  };
+
+  const handleCheckboxChange = (gender) => {
+    setInput({ ...inputs, gender });
   };
 
   return (
@@ -29,8 +36,8 @@ const SignUp = () => {
             <span className="text-base text-slate-700">Full Name</span>
           </label>
           <input
-            value={inputs.fullName}
-            onChange={(e) => setInput({ ...inputs, fullName: e.target.value })}
+            value={inputs.name}
+            onChange={(e) => setInput({ ...inputs, name: e.target.value })}
             placeholder="Full Name"
             className="px-4 py-2 w-full bg-slate-600 text-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
           />
@@ -72,7 +79,10 @@ const SignUp = () => {
             className="px-4 py-2 w-full bg-slate-600 text-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
           />
         </div>
-        <GenderCheckbox />
+        <GenderCheckbox
+          onCheckboxChange={handleCheckboxChange}
+          selectedGender={inputs.gender}
+        />
         <button
           type="submit"
           className="bg-slate-600 px-4 py-2 rounded-lg hover:bg-gradient-to-l transition duration-300"
@@ -80,12 +90,13 @@ const SignUp = () => {
           Sign Up
         </button>
         <p className="text-sm text-center ">
-          Already have an account?{" "}
-          <a href="#" className="text-blue-200 hover:underline">
+          Already have an account ?{" "}
+          <a href="#" className="text-blue-200 ml-2  hover:underline">
             Log In
           </a>
         </p>
       </form>
+      {loading && <div>loading.....</div>}
     </div>
   );
 };

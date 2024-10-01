@@ -4,24 +4,23 @@ const generateTokenAdnSetCookies = require("../utills/generateToken");
 
 exports.signup = async (req, res) => {
   try {
-    const { name, username, password, confirmPassword, gender } =
-      req.body;
+    const { name, username, password, confirmPassword, gender } = req.body;
 
     if (!(name && username && password && confirmPassword && gender)) {
       return res
         .status(400)
-        .json({ status: true, message: "All fields are required" });
+        .json({ status: false, message: "All fields are required" });
     }
     if (password !== confirmPassword) {
       return res
         .status(400)
-        .json({ status: true, messae: "Passwords do not match" });
+        .json({ status: false, messae: "Passwords do not match" });
     }
     const user = await User.findOne({ username });
     if (user) {
       return res
         .status(400)
-        .json({ status: true, message: "Username already exists" });
+        .json({ status: false, message: "Username already exists" });
     }
 
     const generateSalt = await bcrypt.genSalt(10);
@@ -36,7 +35,7 @@ exports.signup = async (req, res) => {
       username,
       password: hashedPassword,
       gender,
-      profilePic : gender === "male" ? boyProfilePic : girlProfilePic,
+      profilePic: gender === "male" ? boyProfilePic : girlProfilePic,
     });
     generateTokenAdnSetCookies(newUser._id, res);
     return res.status(201).json({
@@ -53,15 +52,15 @@ exports.login = async (req, res) => {
   try {
     const { username, password } = req.body;
     if (!(username, password)) {
-      res.status(400).json({ message: "All fields are required" });
+      return res.status(400).json({ message: "All fields are required" });
     }
     const user = await User.findOne({ username });
     if (!user) {
-      res.status(400).json({ message: "User does not exist" });
+     return res.status(400).json({ message: "User does not exist" });
     }
     const bcryptPassword = await bcrypt.compare(password, user.password);
     if (!bcryptPassword) {
-      res.status(400).json({ message: "Invalid credentials" });
+     return res.status(400).json({ message: "Invalid credentials" });
     }
     generateTokenAdnSetCookies(user._id, res);
     return res.status(200).json({
