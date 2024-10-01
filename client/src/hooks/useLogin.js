@@ -1,8 +1,11 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { useAuthContext } from "../context/AuthContext";
 
 const useLogin = () => {
   const [loading, setLoading] = useState(false);
+  const { setAuthUser } = useAuthContext();
+
   const login = async ({ username, password }) => {
     const success = handleInputsError({ username, password });
     if (!success) return;
@@ -18,6 +21,9 @@ const useLogin = () => {
         }),
       });
       const data = await response.json();
+      localStorage.setItem("auth-user", JSON.stringify(data));
+      setAuthUser(data);
+
       if (data.status) {
         toast.success("Logged in successfully");
       } else {

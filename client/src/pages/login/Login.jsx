@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import useLogin from "../../hooks/useLogin";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const [inputs, setInput] = useState({
@@ -53,9 +54,9 @@ const Login = () => {
         </button>
         <p className="text-sm text-center ">
           {"Don't"} have an account ?
-          <a href="#" className="text-blue-200 ml-2 hover:underline">
+          <Link to="/signup" href="#" className="text-blue-200 ml-2 hover:underline">
             Sign Up
-          </a>
+          </Link>
         </p>
       </form>
       {loading && <div>loading.....</div>}

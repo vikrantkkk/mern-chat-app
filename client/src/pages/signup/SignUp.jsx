@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import GenderCheckbox from "./GenderCheckbox";
 import useSignup from "../../hooks/useSignup";
+import { Link } from "react-router-dom";
 
 const SignUp = () => {
   const [inputs, setInput] = useState({
@@ -91,9 +92,9 @@ const SignUp = () => {
         </button>
         <p className="text-sm text-center ">
           Already have an account ?{" "}
-          <a href="#" className="text-blue-200 ml-2  hover:underline">
+          <Link to="/login" href="#" className="text-blue-200 ml-2  hover:underline">
             Log In
-          </a>
+          </Link>
         </p>
       </form>
       {loading && <div>loading.....</div>}
