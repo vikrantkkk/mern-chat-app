@@ -3,7 +3,7 @@ import Conversation from "./Conversation";
 import useGetConversations from "../../hooks/useGetConversation";
 
 const Conversations = () => {
-  const { loading, conversations } = useGetConversations();
+  const { loading, conversations} = useGetConversations();
   return (
     <>
       <div>

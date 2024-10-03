@@ -17,7 +17,6 @@ const SearchBar = () => {
     const conversation = conversations?.data?.find((c) =>
       c.name.toLowerCase().includes(inputValue.toLowerCase())
     );
-    console.log("🚀 ~ handleSubmit ~ conversation:", conversation)
     if (conversation) {
       setSelectedConversation(conversation);
       setInputvalue("");
@@ -26,17 +25,17 @@ const SearchBar = () => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="p-4 flex items-center justify-center"
+      className="p-4 flex gap-2 items-center justify-center"
     >
       <input
         value={inputValue}
         onChange={(e) => setInputvalue(e.target.value)}
-        placeholder="search..."
-        className="p-2 rounded-md w-full"
+        type="text" placeholder="Search..."
+        className="input input-bordered w-full max-w-xs"
       />
       <button
         type="submit"
-        className="p-2 rounded-md bg-blue-500 text-white ml-2"
+        className="btn btn-primary"
       >
         Search
       </button>

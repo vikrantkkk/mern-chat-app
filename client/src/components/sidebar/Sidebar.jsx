@@ -6,10 +6,9 @@ const Sidebar = () => {
   return (
     <div className=" w-[25%] border-r">
       <SearchBar />
-      <div className="border-b" />
       <Conversations />
       <div className="p-4">
-        <button className="p-2 bg-red-600 rounded-md">Logout</button>
+        <button className="btn">Logout</button>
       </div>
     </div>
   );

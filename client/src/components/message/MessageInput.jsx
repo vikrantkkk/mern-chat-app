@@ -8,7 +8,6 @@ const MessageInput = () => {
   const hanldeSubmit = async (e) => {
     e.preventDefault();
     if (!chatInput) return;
-    e.preventDefault();
     await sendMessage(chatInput);
     setChatInput("");
   };
@@ -20,6 +19,7 @@ const MessageInput = () => {
           value={chatInput}
           onChange={(e) => setChatInput(e.target.value)}
           className="block w-full p-2 rounded-2xl"
+          
         />
         <button
           type="submit"

@@ -13,12 +13,10 @@ const Conversation = ({ conversation, Index }) => {
           isSelected ? "bg-sky-500" : ""
         }`}
       >
-        <div className="">
-          <img
-            className="w-12 h-12 rounded-full object-cover"
-            src={conversation?.profilePic}
-            alt="profile pic"
-          />
+        <div className="avatar online">
+          <div className="w-14 rounded-full">
+            <img src={conversation?.profilePic} alt="profile pic" />
+          </div>
         </div>
 
         <div className="flex-1 ml-4">
@@ -26,19 +24,10 @@ const Conversation = ({ conversation, Index }) => {
             <span className="text-gray-900 font-medium text-lg">
               {conversation?.name || "Unknown User"}
             </span>
-            <span className="text-sm text-gray-500">
-              {conversation?.lastMessageTime || "Now"}
-            </span>
-          </div>
-
-          <div className="text-gray-600 text-sm truncate">
-            {conversation?.lastMessage || "No messages yet"}
           </div>
         </div>
       </div>
-      {Index !== conversation.length - 1 && (
-        <div className=" border-b w-full" />
-      )}
+      {Index !== conversation.length - 1 && <div className=" border w-full" />}
     </>
   );
 };
