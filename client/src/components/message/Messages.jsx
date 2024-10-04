@@ -2,9 +2,11 @@ import React from "react";
 import useGetMessage from "../../hooks/useGetMessage";
 import MessageSkeleton from "./MessageSkeleton";
 import Message from "./Message";
+import useListenMessage from "../../hooks/useListenMessage";
 
 const Messages = () => {
   const { loading, message } = useGetMessage();
+  useListenMessage();
 
   return (
     <div className="flex-1 px-4">

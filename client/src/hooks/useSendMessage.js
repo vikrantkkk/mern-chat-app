@@ -5,6 +5,7 @@ import useConversation from "../zustand/useConversation";
 const useSendMessage = () => {
   const [loading, setLoading] = useState(false);
   const { message, addMessage, selectedConversation } = useConversation();
+  console.log("🚀 ~ useSendMessage ~ message:", message)
 
   const sendMessage = async (chatInput) => {
     try {
@@ -20,10 +21,14 @@ const useSendMessage = () => {
         }
       );
       const data = await response.json();
+      console.log("🚀 ~ sendMessage ~ data:", data)
       if (data.error) {
         throw new Error(data.error);
       }
-      addMessage({ ...message, data });
+      addMessage({
+        ...message,
+        data: [...message.data, data.data],
+      });
     } catch (error) {
       toast.error(error.message);
     } finally {
